@@ -9,7 +9,7 @@ Creating a fully functional movie ticket booking system with a fleshed out backe
 - Create login/registration page.
 
 ## Objectives:
-[x] Create basic logic from program in Python
-[] Create Flask app to implement functions
-[] Use database to store information
-[] Create login/registration page
+- [x] Create basic logic from program in Python
+- [ ] Create Flask app to implement functions
+- [ ] Use database to store information
+- [ ] Create login/registration page
