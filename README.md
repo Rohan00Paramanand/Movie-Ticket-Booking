@@ -13,3 +13,5 @@ Creating a fully functional movie ticket booking system with a fleshed out backe
 - [ ] Create Flask app to implement functions
 - [ ] Use database to store information
 - [ ] Create login/registration page
+
+## Check
