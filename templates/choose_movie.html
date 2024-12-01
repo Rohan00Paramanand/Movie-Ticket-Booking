@@ -12,14 +12,14 @@
 </div>
 <div class="card mx-auto mt-5 shadow-lg border rounded" style="max-width: 600px; border-radius: 12px;">
     <div class="card-body">
-        <h3 class="text-center mb-4">Choose your City</h3>
+        <h3 class="text-center mb-4">Choose your Movie</h3>
         <div class="container p-4 mt-4 border rounded">
-            <form action="/City" method="POST" class="form-group mt-4">
+            <form class="form-group mt-4">
                 <div class="form-group">
-                    <label for="choose_city">Select City:</label>
-                    <select name="choose_city" id="choose_city" class="form-control mt-1">
-                        {% for city in cities %}
-                            <option value="{{ city }}">{{ city }}</option>
+                    <label for="choose_movie">Select Movie:</label>
+                    <select name="choose_movie" id="choose_movie" class="form-control mt-1">
+                        {% for movie in movies %}
+                            <option value="{{ movie }}">{{ movie }}</option>
                         {% endfor %}
                     </select>
                 </div>
