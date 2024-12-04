@@ -8,12 +8,6 @@ def get_db():
         g.db = sqlite3.connect(DATABASE)
     return g.db
 
-@app.teardown_appcontext
-def close_db(exception):
-    db = g.pop('db', None)
-    if db is not None:
-        db.close()
-
 def get_Cities():
     db = get_db()
     cursor = db.cursor()    
