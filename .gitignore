@@ -5,3 +5,5 @@ __pycache__/
 Thumbs.db
 .vscode/
 .idea/
+database/*.db
+*.sqlite3

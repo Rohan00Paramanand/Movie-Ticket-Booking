@@ -1,16 +1,11 @@
-from flask import Flask, render_template, request
-from random import sample
+from flask import Flask, render_template, request, g
+from database import get_db, close_db, get_Cities, get_Movies, get_Theatres, book
 
 app = Flask(__name__, template_folder='templates')
 
-Cities = ['Delhi', 'Mumbai', 'Chennai', 'Kolkata', 'Chandigarh', 'Shimla']
-Theatres = ['PVR', 'INOX', 'US Cinemas', 'JAM']
-Movies_by_theatre = {
-    'PVR': ['Bahubali 1', 'Bahubali 2', 'RRR', 'The Kashmir Files'],
-    'INOX': ['RRR', 'Bhool Bhulaiyaa', 'Singham'],
-    'US Cinemas': ['Bahubali 2', 'Dabangg', 'Bajarangi Bhaijaan'],
-    'JAM': ['URI: The Surgical Strike', 'RRR', 'Life of Pi', 'English Medium'],
-}
+@app.teardown_appcontext
+def teardown_db(exception):
+    close_db(exception)
 
 # Home Page
 @app.route('/')
@@ -20,33 +15,35 @@ def home():
 # Pick City
 @app.route('/choose_city')
 def choose_city():
+    Cities = get_Cities()
     return render_template('choose_city.html', cities = Cities)
 
 # Pick Theatre
-@app.route('/City', methods = ['POST'])
+@app.route('/City', methods = ['POST', 'GET'])
 def choose_theatre():
+    Theatres = get_Theatres()
     return render_template('choose_theatre.html', theatres = Theatres)
 
 # Pick Movie
-@app.route('/Theatre', methods = ['POST'])
+@app.route('/Theatre', methods = ['POST', 'GET'])
 def choose_movie():
+    Movies = get_Movies()
     theatre = request.form.get('choose_theatre')
-    available_movies = sample(Movies_by_theatre[theatre], k=min(3, len(Movies_by_theatre[theatre])))
-    return render_template('choose_movie.html', movies = available_movies)
+    return render_template('choose_movie.html', movies = Movies)
 
 # Book Tickets
-@app.route('/Book', methods = ['POST'])
+@app.route('/Book', methods = ['POST', 'GET'])
 def book_tickets():
     global Movie
     Movie = request.form.get('choose_movie')
-    return render_template('book_tickets.html', movie = Movie)
+    return render_template('book_tickets.html', movies = Movie)
 
 # Success Page
-@app.route('/Tickets', methods = ['POST'])
+@app.route('/Tickets', methods = ['POST', 'GET'])
 def success():
     Tickets = request.form.get('no_tickets')
+    book(Movie, int(Tickets))
     return render_template('success.html', tickets = Tickets, movie = Movie)
-
 
 if __name__ == "__main__":
     app.run(debug=True)

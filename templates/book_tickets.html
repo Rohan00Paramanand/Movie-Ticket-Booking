@@ -17,11 +17,12 @@
             <form action="/Tickets" method="POST" class="form-group mt-4">
                 <div class="form-group">
                     <label for="no_tickets">Number of tickets for {{ movie }} </label>
-                    <input name="no_tickets" id="no_tickets" type="number">
+                    <input name="no_tickets" id="no_tickets" type="number" required>
                 </div>
                 <button type="submit" class="btn btn-primary mt-3">Book</button>
             </form>
         </div>
+        <a href="/Theatre"><button class="btn btn-secondary mt-5">Back</button></a>
     </div>
 </div>
 
