@@ -37,7 +37,7 @@ def show_theatres(city):
                 show_movies(theatres[theatre_choice])
                 break
             else:
-                print ("Invalid choice. Please try again.")
+                print ("Inva    lid choice. Please try again.")
         except ValueError:
             print ("Please enter only number.")
 

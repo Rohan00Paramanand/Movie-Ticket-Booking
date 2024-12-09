@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, g
-from database import get_db, close_db, get_Cities, get_Movies, get_Theatres, book
+from database import get_db, close_db, get_Cities, get_Movies, get_Theatres, book, get_Tickets
 
 app = Flask(__name__, template_folder='templates')
 
@@ -11,6 +11,12 @@ def teardown_db(exception):
 @app.route('/')
 def home():
     return render_template('index.html')
+
+# Check ticket availability
+@app.route('/check_tickets')
+def check_tickets():
+    Available_Tickets = get_Tickets()
+    return render_template('check_tickets.html', A_Tickets = Available_Tickets)
 
 # Pick City
 @app.route('/choose_city')

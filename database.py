@@ -42,3 +42,10 @@ def book(movie_name, tickets):
     cursor = db.cursor()
     cursor.execute("update Tickets_Availability set Total_Tickets = Total_Tickets - ? where Movie_Name = ?", (tickets, movie_name))
     db.commit()
+
+def get_Tickets():
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("select * from Tickets_Availability")
+    Available_Tickets = cursor.fetchall()
+    return Available_Tickets

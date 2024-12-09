@@ -17,4 +17,4 @@ Creating a fully functional movie ticket booking system with a fleshed out backe
 ## Completion Status:
 Completed booking functionality for website. 
 Completed database creation and ticket booking reflecting on database
-Next step to create login/registration page and show ticket availability per movie on choose_movie page
+Completed show tickets feature which shows a table with available tickets per movie
