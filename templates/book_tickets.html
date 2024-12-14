@@ -18,7 +18,7 @@
                 <div class="form-group">
                     <h5>{{ AT }} tickets left!</h5>
                     <label for="no_tickets">Number of tickets for {{ movie }} </label>
-                    <input name="no_tickets" id="no_tickets" type="number" min="1" required>
+                    <input name="no_tickets" id="no_tickets" type="number" min="1" max = "{{ AT }}" required>
                 </div>
                 <button type="submit" class="btn btn-primary mt-3">Book</button>
             </form>

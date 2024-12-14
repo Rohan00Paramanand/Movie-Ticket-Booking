@@ -51,6 +51,9 @@ def book_tickets():
 @app.route('/Tickets', methods = ['POST', 'GET'])
 def success():
     Tickets = request.form.get('no_tickets')
+    Available_Tickets = ticket_info(Movie)
+    if int(Tickets) > Available_Tickets:
+        return render_template('error.html')
     book(Movie, int(Tickets))
     return render_template('success.html', tickets = Tickets, movie = Movie)
 
