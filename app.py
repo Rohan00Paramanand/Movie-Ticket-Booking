@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, g
-from database import get_db, close_db, get_Cities, get_Movies, get_Theatres, book, get_Tickets
+from database import get_db, close_db, get_Cities, get_Movies, get_Theatres, book, get_Tickets, ticket_info
 
 app = Flask(__name__, template_folder='templates')
 
@@ -42,7 +42,10 @@ def choose_movie():
 def book_tickets():
     global Movie
     Movie = request.form.get('choose_movie')
-    return render_template('book_tickets.html', movies = Movie)
+    Available_Tickets = ticket_info(Movie)
+    if Available_Tickets == 0:
+        return render_template('house_full.html', movie =  Movie)
+    return render_template('book_tickets.html', movie = Movie, AT = Available_Tickets)
 
 # Success Page
 @app.route('/Tickets', methods = ['POST', 'GET'])
