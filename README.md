@@ -13,9 +13,3 @@ Creating a fully functional movie ticket booking system with a fleshed out backe
 - [x] Create Flask app to implement functions
 - [x] Use database to store information
 - [ ] Create login/registration page
-
-## Completion Status:
-Completed booking functionality for website. 
-Completed database creation and ticket booking reflecting on database
-Completed show tickets feature which shows a table with available tickets per movie
-Completed check on user booking more tickets than available, updated tickets table to have the constraint as well
