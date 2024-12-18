@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, g
-from database import get_db, close_db, get_Cities, get_Movies, get_Theatres, book, get_Tickets, ticket_info
+from flask import Flask, render_template, request, flash
+from database import get_db, close_db, get_Cities, get_Movies, get_Theatres, book, get_Tickets, ticket_info, login, register
 
 app = Flask(__name__, template_folder='templates')
+app.secret_key = "your_secret_key"
 
 @app.teardown_appcontext
 def teardown_db(exception):
@@ -10,7 +11,35 @@ def teardown_db(exception):
 # Home Page
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('login.html')
+
+# Login
+@app.route('/login', methods = ['POST', 'GET'])
+def Login_User():
+    UserID = request.form.get('username')
+    PassWD = request.form.get('password')
+    if login(UserID, PassWD):
+        flash ('Logged in successfully!', 'success')
+        return render_template('index.html')
+    else:
+        flash ('Incorrect username or password', 'danger')
+        return render_template('login.html')
+
+# Register
+@app.route('/register', methods = ['POST', 'GET'])
+def Register_User():
+    if request.method == 'POST':
+        UserID = request.form.get('username')
+        PassWD = request.form.get('password')
+
+        if register(UserID, PassWD):
+            flash ('Registered successfully!', 'success')
+            return render_template('index.html')
+        else:
+            flash ('Username already exists!', 'danger')
+            return render_template('register.html')
+    
+    return render_template('register.html')
 
 # Check ticket availability
 @app.route('/check_tickets')

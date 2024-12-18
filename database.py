@@ -1,7 +1,12 @@
 import sqlite3
 from flask import g
+import bcrypt
+from cryptography.fernet import Fernet
 
 DATABASE = 'database/tickets.db'
+
+encryption_key = Fernet.generate_key()
+cipher = Fernet(encryption_key)
 
 def get_db():
     if 'db' not in g:
@@ -12,6 +17,34 @@ def close_db(exception):
     db = g.pop('db', None)
     if db is not None:
         db.close()
+
+def register(username, password):
+    db = get_db()
+    cursor = db.cursor()
+
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
+    try:
+        encrypted_username = cipher.encrypt(username.encode('utf-8'))
+        cursor.execute ('insert into UsersInfo (Username, Password) values (?, ?)', (encrypted_username, hashed_password))
+        db.commit()
+        return True
+    except sqlite3.IntegrityError:
+        return False
+
+def login(username, password):
+    db = get_db()
+    cursor = db.cursor()
+
+    encrypted_username = cipher.encrypt(username.encode('utf-8'))
+    cursor.execute ('select Password from UsersInfo where Username = ?', (encrypted_username,))
+    row = cursor.fetchone()
+
+    if row:
+        stored_password = row[0]
+        if bcrypt.checkpw(password.encode('utf-8'), stored_password):
+            return True
+        return False
 
 def get_Cities():
     db = get_db()
