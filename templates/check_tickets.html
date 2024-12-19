@@ -10,6 +10,12 @@
 
     <div class="bg-dark text-white text-center py-3 p-4">
         <h2>Available Tickets</h2>
+        {% if username %}
+        <div class="d-flex align-items-center">
+            <span class="me-3">Welcome, <strong>{{ username }}</strong></span>
+            <a href="/logout"><button class="btn btn-danger">Logout</button></a>
+        </div>
+        {% endif %}
     </div>
     <div class="card mx-auto mt-5 shadow-lg border rounded">
         <div class="card-body">
@@ -25,7 +31,7 @@
                 </tr>
                 {% endfor %}
             </table>
-            <a href="/"><button class="btn btn-secondary mt-5">Home</button></a>
+            <a href="/home"><button class="btn btn-secondary mt-5">Home</button></a>
         </div>
     </div>
 </body>

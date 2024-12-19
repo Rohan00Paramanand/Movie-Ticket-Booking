@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, redirect, session
 from database import get_db, close_db, get_Cities, get_Movies, get_Theatres, book, get_Tickets, ticket_info, login, register
 
 app = Flask(__name__, template_folder='templates')
@@ -8,7 +8,7 @@ app.secret_key = "your_secret_key"
 def teardown_db(exception):
     close_db(exception)
 
-# Home Page
+# Start page
 @app.route('/')
 def home():
     return render_template('login.html')
@@ -19,8 +19,9 @@ def Login_User():
     UserID = request.form.get('username')
     PassWD = request.form.get('password')
     if login(UserID, PassWD):
-        flash ('Logged in successfully!', 'success')
-        return render_template('index.html')
+        session['userid'] = UserID
+        session['loggedin'] = True
+        return redirect('/home')
     else:
         flash ('Incorrect username or password', 'danger')
         return render_template('login.html')
@@ -33,13 +34,25 @@ def Register_User():
         PassWD = request.form.get('password')
 
         if register(UserID, PassWD):
-            flash ('Registered successfully!', 'success')
-            return render_template('index.html')
+            session['userid'] = UserID
+            session['registered'] = True
+            return redirect('/home')
         else:
             flash ('Username already exists!', 'danger')
             return render_template('register.html')
     
     return render_template('register.html')
+
+# Home page
+@app.route('/home')
+def index():
+    userid = session.get('userid', None)
+    if session.get('loggedin', False):
+        flash ('Logged in successfully!', 'success')
+        return render_template('index.html', username = userid)
+    if session.get('registered', False):
+        flash ('Registered successfully!', 'success')
+        return render_template('index.html', username = userid)
 
 # Check ticket availability
 @app.route('/check_tickets')
@@ -85,6 +98,12 @@ def success():
         return render_template('error.html')
     book(Movie, int(Tickets))
     return render_template('success.html', tickets = Tickets, movie = Movie)
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash('You have been logged out.', 'info')
+    return redirect ('/')
 
 if __name__ == "__main__":
     app.run(debug=True)

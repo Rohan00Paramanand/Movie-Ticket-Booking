@@ -25,8 +25,7 @@ def register(username, password):
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
     try:
-        encrypted_username = cipher.encrypt(username.encode('utf-8'))
-        cursor.execute ('insert into UsersInfo (Username, Password) values (?, ?)', (encrypted_username, hashed_password))
+        cursor.execute ('insert into UsersInfo (Username, Password) values (?, ?)', (username, sqlite3.Binary(hashed_password)))
         db.commit()
         return True
     except sqlite3.IntegrityError:
@@ -36,8 +35,7 @@ def login(username, password):
     db = get_db()
     cursor = db.cursor()
 
-    encrypted_username = cipher.encrypt(username.encode('utf-8'))
-    cursor.execute ('select Password from UsersInfo where Username = ?', (encrypted_username,))
+    cursor.execute ('select Password from UsersInfo where Username = ?', (username,))
     row = cursor.fetchone()
 
     if row:

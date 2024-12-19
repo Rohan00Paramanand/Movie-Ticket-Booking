@@ -9,6 +9,12 @@
 <body>
     <div class="bg-dark text-white py-4 p-4">
         <h1>Home</h1>
+        {% if username %}
+        <div class="d-flex align-items-center">
+            <span class="me-3">Welcome, <strong>{{ username }}</strong></span>
+            <a href="/logout"><button class="btn btn-danger">Logout</button></a>
+        </div>
+        {% endif %}
     </div>
     <div class="card mx-auto mt-5 shadow-lg border rounded" style="max-width: 600px;">
         <div class="card-body text-center">
