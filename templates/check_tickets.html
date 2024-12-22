@@ -13,7 +13,7 @@
         {% if username %}
         <div class="d-flex align-items-center">
             <span class="me-3">Welcome, <strong>{{ username }}</strong></span>
-            <a href="/logout"><button class="btn btn-danger">Logout</button></a>
+            <a href="{{ url_for('logout') }}"><button class="btn btn-danger">Logout</button></a>
         </div>
         {% endif %}
     </div>
@@ -31,7 +31,7 @@
                 </tr>
                 {% endfor %}
             </table>
-            <a href="/home"><button class="btn btn-secondary mt-5">Home</button></a>
+            <a href="{{ url_for('index') }}"><button class="btn btn-secondary mt-5">Home</button></a>
         </div>
     </div>
 </body>

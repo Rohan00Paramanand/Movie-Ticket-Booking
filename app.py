@@ -76,7 +76,6 @@ def choose_theatre():
 @app.route('/Theatre', methods = ['POST', 'GET'])
 def choose_movie():
     Movies = get_Movies()
-    theatre = request.form.get('choose_theatre')
     return render_template('choose_movie.html', movies = Movies)
 
 # Book Tickets

@@ -12,7 +12,7 @@
     {% if username %}
     <div class="d-flex align-items-center">
         <span class="me-3">Welcome, <strong>{{ username }}</strong></span>
-        <a href="/logout"><button class="btn btn-danger">Logout</button></a>
+        <a href="{{ url_for('logout') }}"><button class="btn btn-danger">Logout</button></a>
     </div>
     {% endif %}
 </div>
@@ -20,7 +20,7 @@
     <div class="card-body">
         <h3 class="text-center mb-4">Choose your Theatre</h3>
         <div class="container p-4 mt-4 border rounded">
-            <form action="/Theatre" method="POST" class="form-group mt-4">
+            <form action="{{ url_for('choose_movie') }}" method="POST" class="form-group mt-4">
                 <div class="form-group">
                     <label for="choose_theatre">Select Theatre:</label>
                     <select name="choose_theatre" id="choose_theatre" class="form-control mt-1">
@@ -32,7 +32,7 @@
                 <button type="submit" class="btn btn-primary mt-3">Next</button>
             </form>
         </div>
-        <a href="/choose_city"><button class="btn btn-secondary mt-5">Back</button></a>
+        <a href="{{ url_for('choose_city') }}"><button class="btn btn-secondary mt-5">Back</button></a>
     </div>
 </div>
 

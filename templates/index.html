@@ -12,20 +12,20 @@
         {% if username %}
         <div class="d-flex align-items-center">
             <span class="me-3">Welcome, <strong>{{ username }}</strong></span>
-            <a href="/logout"><button class="btn btn-danger">Logout</button></a>
+            <a href="{{ url_for('logout') }}"><button class="btn btn-danger">Logout</button></a>
         </div>
         {% endif %}
     </div>
     <div class="card mx-auto mt-5 shadow-lg border rounded" style="max-width: 600px;">
         <div class="card-body text-center">
             <h3 class="text-center mb-4">Book Tickets</h3>
-            <a href="/choose_city"><button class="btn btn-primary">Click here</button></a>
+            <a href="{{ url_for('choose_city') }}"><button class="btn btn-primary">Click here</button></a>
         </div>
     </div>
     <div class="card mx-auto mt-5 shadow-lg border rounded" style="max-width: 600px;">
         <div class="card-body text-center">
             <h3 class="text-center mb-4">Check Tickets</h3>
-            <a href="/check_tickets"><button class="btn btn-primary">Click here</button></a>
+            <a href="{{ url_for('check_tickets') }}"><button class="btn btn-primary">Click here</button></a>
         </div>
     </div>
 </body>
