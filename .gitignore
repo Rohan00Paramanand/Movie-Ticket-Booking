@@ -7,3 +7,4 @@ Thumbs.db
 .idea/
 database/*.db
 *.sqlite3
+config.py

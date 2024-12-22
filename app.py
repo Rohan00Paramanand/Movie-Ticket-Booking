@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, flash, redirect, session
 from database import get_db, close_db, get_Cities, get_Movies, get_Theatres, book, get_Tickets, ticket_info, login, register
 
 app = Flask(__name__, template_folder='templates')
-app.secret_key = "your_secret_key"
+app.config.from_pyfile('config.py')
 
 @app.teardown_appcontext
 def teardown_db(exception):
